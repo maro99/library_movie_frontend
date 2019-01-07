@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <!-- axios -->
+    <script src="js/axios.js"></script>
+</head>
+<body>
+  <div class="container mt-2">
+    <h1>동대문구 도서관 무료영화 관람정보</h1>
+
+    <div class="card mb-3">
+      <div class="card-header"></div>
+      <div class="card-body p-0"></div>
+    </div>
+  </div>
+
+  <script>
+    axios.get('http://localhost:8000/api/movies/main_page_by_date')
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  </script>
+
+</body>
+</html>
