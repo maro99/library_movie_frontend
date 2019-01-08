@@ -18,7 +18,7 @@ axios.get('http://localhost:8000/api/movies/main_page_by_date')
       // curElement    += '</div>';
 
       var curElement = `<div class="col-4 mb-3">
-                          <a href="movie_detail.html"><div class="card-img-top" style="height: 177px; width: 309px; background-image: url('${curMovie.thumbnail_url}'); background-size: cover;"></div></a>
+                          <a href="movie_detail.html?${curMovie.pk}"><div class="card-img-top" style="height: 177px; width: 309px; background-image: url('${curMovie.thumbnail_url}'); background-size: cover;"></div></a>
 
                           <div class="card-body">
                               <h5 class="card-title">${curMovie.title}</h5>
