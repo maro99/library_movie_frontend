@@ -29,9 +29,16 @@
     //     // 각 순회에 해당하는 요소는 curMovie
         var curMovie = response.data;
 
+//       //  2018-12-30T15:00:00+09:00  날짜 보기 좋은 형식으로 변환
+        var when_date_pre= curMovie.when
+        var when_date = when_date_pre.split("T")[0]
+        var when_time_pre_list = when_date_pre.split("T")[1].split(":")
+        var when_time =  when_time_pre_list[0] +":"+when_time_pre_list[1]
+        var when = when_date +" "+ when_time
 
 
-        var curElement = `<div class="card-img-top" style="height: 354px; width: 618px; background-image: url('${curMovie.thumbnail_url}'); margin: 20px;  background-size: cover;"> `
+        var curElement = `<div class="card bg-dark text-white">`
+        curElement += `<div class="card-img-top" style="height: 354px; width: 618px; background-image: url('${curMovie.thumbnail_url}'); margin: 20px;  background-size: cover;"> `
         curElement     +=   `</div>`
         curElement     +=   `<div class="card-body">`
         curElement     +=   ` <h4 class="card-title">${curMovie.title}</h4>`
@@ -51,13 +58,13 @@
         if(curMovie.runtime){
           curElement     +=   `<p class="card-text">런타임 : ${curMovie.runtime}</p>`
         }
-        if(curMovie.when){
-          curElement     +=   `<p class="card-text">상영일 : ${curMovie.when}</p>`
-        }
+
+        curElement     +=   `<p class="card-text">상영일 : ${when}</p>`
         curElement     +=   `<p class="card-text">장소: <a href="https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query= ${curMovie.library.library_name}">${curMovie.library.library_name}</a> ${curMovie.place}</p>`
         if(curMovie.story){
           curElement     +=   `<p class="card-text">줄거리 : ${curMovie.story}</p>`
         }
+        curElement     +=`</div>`
         curElement     +=`</div>`
 
         $('.content').append(curElement);
