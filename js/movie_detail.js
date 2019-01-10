@@ -48,7 +48,7 @@
 
                               <p class="card-text">상영일:  ${curMovie.when}</p>
 
-                              <p class="card-text">장소: <a href="https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query= ${curMovie.library_name}">${curMovie.library_name}</a> ${curMovie.place}</p>
+                              <p class="card-text">장소: <a href="https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query= ${curMovie.library.library_name}">${curMovie.library.library_name}</a> ${curMovie.place}</p>
 
                               <p>줄거리: </p>
                                   <span>${curMovie.story}</span>
