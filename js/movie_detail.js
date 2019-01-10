@@ -31,29 +31,34 @@
 
 
 
-        var curElement = `<div class="card-img-top" style="height: 354px; width: 618px; background-image: url('${curMovie.thumbnail_url}'); margin: 20px;  background-size: cover;">
-                          </div>
-                          <div class="card-body">
-                              <h4 class="card-title">${curMovie.title}</h4>
+        var curElement = `<div class="card-img-top" style="height: 354px; width: 618px; background-image: url('${curMovie.thumbnail_url}'); margin: 20px;  background-size: cover;"> `
+        curElement     +=   `</div>`
+        curElement     +=   `<div class="card-body">`
+        curElement     +=   ` <h4 class="card-title">${curMovie.title}</h4>`
 
-                              <p class="card-text">장르 : ${curMovie.genre}</p>
-
-                              <p class="card-text">감독 : ${curMovie.director}</p>
-
-                              <p class="card-text">평점 : ${curMovie.rating}</p>
-
-                              <p class="card-text">시청연령 : ${curMovie.age}</p>
-
-                              <p class="card-text">런타임 :  ${curMovie.runtime} 분 </p>
-
-                              <p class="card-text">상영일:  ${curMovie.when}</p>
-
-                              <p class="card-text">장소: <a href="https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query= ${curMovie.library.library_name}">${curMovie.library.library_name}</a> ${curMovie.place}</p>
-
-                              <p>줄거리: </p>
-                                  <span>${curMovie.story}</span>
-
-                          </div>`
+        if(curMovie.genre){
+          curElement     +=   `<p class="card-text">장르 : ${curMovie.genre}</p>`
+        }
+        if(curMovie.director){
+          curElement     +=   `<p class="card-text">감독 : ${curMovie.director}</p>`
+        }
+        if(curMovie.rating){
+          curElement     +=   `<p class="card-text">평점 : ${curMovie.rating}</p>`
+        }
+        if(curMovie.age){
+          curElement     +=   `<p class="card-text">시청연령 : ${curMovie.age}</p>`
+        }
+        if(curMovie.runtime){
+          curElement     +=   `<p class="card-text">런타임 : ${curMovie.runtime}</p>`
+        }
+        if(curMovie.when){
+          curElement     +=   `<p class="card-text">상영일 : ${curMovie.when}</p>`
+        }
+        curElement     +=   `<p class="card-text">장소: <a href="https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query= ${curMovie.library.library_name}">${curMovie.library.library_name}</a> ${curMovie.place}</p>`
+        if(curMovie.story){
+          curElement     +=   `<p class="card-text">줄거리 : ${curMovie.story}</p>`
+        }
+        curElement     +=`</div>`
 
         $('.content').append(curElement);
 
