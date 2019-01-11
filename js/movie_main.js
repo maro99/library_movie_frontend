@@ -1,7 +1,4 @@
 
-
-
-
 // /api/movies/main_page_by_date/에 GET 요쳥
 axios.get('http://localhost:8000/api/movies/main_page_by_date')
   // 성공시

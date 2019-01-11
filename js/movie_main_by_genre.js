@@ -23,7 +23,6 @@ axios.get('http://localhost:8000/api/movies/main_page_by_genre')
           $('.content').append(`<h2>${genre_list[index]}</h2>`)
         }
 
-          // $('.content').append(`<div class="row">`);
           curGenreBlock = `<div class="row">`
 
           // response.data 가 가진 요소들을 순회
@@ -48,7 +47,6 @@ axios.get('http://localhost:8000/api/movies/main_page_by_genre')
               curElement += `     </div>`
               curElement += ` </div>`;
 
-              // $('.content').append(curElement);
               curGenreBlock += curElement
             }
           }
