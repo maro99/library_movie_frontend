@@ -1,1 +1,23 @@
-<h1>test</h1>
+
+<script>
+
+// 쿠키에서 토큰 가져와본다.
+var token = getCookie('token')
+
+// 있으면 로긴  됬다는거 니까 알맞은 버튼 보여주고
+if (token){
+  $('.content2').append(`<h2>logged_in</h2>`);
+}
+//없으면 로긴 안됬다는 거니까 알맞은 버튼 보여준다.
+else{
+  $('.content2').append(`<h2>need_login</h2>`);
+}
+
+
+</script>
+
+
+<div class="content2">
+
+
+</div>
