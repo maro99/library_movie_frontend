@@ -1,3 +1,5 @@
+<!-- //로긴, 로그아웃, 회원가입, 마이페이지 버튼 관련된 html -->
+
 
 <script>
 
@@ -6,11 +8,25 @@ var token = getCookie('token')
 
 // 있으면 로긴  됬다는거 니까 알맞은 버튼 보여주고
 if (token){
-  $('.content2').append(`<h2>logged_in</h2>`);
+
+  // // 서버 까지 요청 보내서 확인하면 좋지만. 시간 너무 걸려서 버튼 생겼다가 사라짐. 걍 주석처리 해놓겠음 .
+  // axios({
+  //   url: 'http://localhost:8000/api/members/auth-test',
+  //   headers: {
+  //     'Authorization': 'Token ' + getCookie('token')
+  //   }
+  // })
+  // .then(function(response){
+    $('#a-login').hide();
+    $('#a-signin').hide();
+
+  // })
+
 }
 //없으면 로긴 안됬다는 거니까 알맞은 버튼 보여준다.
 else{
-  $('.content2').append(`<h2>need_login</h2>`);
+  $('#btn-logout').hide();
+  $('#a-mypage').hide();
 }
 
 
@@ -19,5 +35,20 @@ else{
 
 <div class="content2">
 
+  <div style="float:left; display:inline-block; padding:10px 10px;" >
+          <a id="a-login" href="login_page.html" class="btn btn-primary" >Login</a>
+  </div>
+
+  <div style="float:left; display:inline-block; padding:10px 10px;" >
+          <a id="a-signin" href="signin_page.html" class="btn btn-primary" >회원가입</a>
+  </div>
+
+  <div style="float:left; display:inline-block; padding:10px 10px;" >
+          <button id="btn-logout" type="submit" class="btn btn-primary" >Logout</button>
+  </div>
+
+  <div style="float:left; display:inline-block; padding:10px 10px;" >
+          <a id="a-mypage" href="my_page.html" class="btn btn-primary" >My Page</a>
+  </div>
 
 </div>
