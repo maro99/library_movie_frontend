@@ -2,7 +2,7 @@
 body{
     background-color: #000000;
 }
-h5, h4, h3, h2, h1, span {
+h5, h4, h3, h2, h1, span, labal {
     color: #F0FFFF;
 }
 a {

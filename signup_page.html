@@ -48,6 +48,27 @@
 
     <div>
       <h1>signup_page</h1>
+
+      <form action="http://localhost:8000/api/members/signup" method="POST">
+        <labal for="username">아이디</labal>
+        <input name="username" type="text" class="form-control" id="username">
+        <labal for="email">email</labal>
+        <input name="email" type="email" class="form-control" id="email">
+
+        <labal for="password">password</labal>
+        <input name="password" type="password" class="form-control" id="password">
+        <labal for="password2">password2</labal>
+        <input name="password2" type="password2" class="form-control" id="password2">
+        <labal for="phone_number">phone_number</labal>
+        <input name="phone_number" type="phone_number" class="form-control" id="phone_number">
+
+         <!-- <meta http-equiv="refresh" content="0; url=http://localhost:3001" /> -->
+        <button type="submit" class="btn btn-primary btn-block">회원가입</button>
+
+
+
+      </form>
+
     </div>
 
   </div>
