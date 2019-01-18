@@ -62,7 +62,7 @@
         curElement     +=   `<p class="card-text">상영일 : ${when}</p>`
         curElement     +=   `<p class="card-text">장소: <a href="https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query= ${curMovie.library.library_name}">${curMovie.library.library_name}</a> ${curMovie.place}</p>`
         if(curMovie.story){
-          curElement     +=   `<p class="card-text">줄거리 : ${curMovie.story}</p>`
+          curElement     +=   `<p class="card-text"> ${curMovie.story}</p>`
         }
         curElement     +=`</div>`
         curElement     +=`</div>`

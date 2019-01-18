@@ -3,33 +3,52 @@
 
 <script>
 
-// 쿠키에서 토큰 가져와본다.
-var token = getCookie('token')
+init()
+$('#btn-logout').click(LogOut);
 
-// 있으면 로긴  됬다는거 니까 알맞은 버튼 보여주고
-if (token){
+function init(){
+  // 쿠키에서 토큰 가져와본다.
+  var token = getCookie('token');
 
-  // // 서버 까지 요청 보내서 확인하면 좋지만. 시간 너무 걸려서 버튼 생겼다가 사라짐. 걍 주석처리 해놓겠음 .
-  // axios({
-  //   url: 'http://localhost:8000/api/members/auth-test',
-  //   headers: {
-  //     'Authorization': 'Token ' + getCookie('token')
-  //   }
-  // })
-  // .then(function(response){
-    $('#a-login').hide();
-    $('#a-signin').hide();
-
-  // })
-
-}
-//없으면 로긴 안됬다는 거니까 알맞은 버튼 보여준다.
-else{
-  $('#btn-logout').hide();
-  $('#a-mypage').hide();
+  // 있으면 로긴  됬다는거 니까 알맞은 버튼 보여주고
+  if (token){
+      $('#a-login').hide();
+      $('#a-signup').hide();
+  }
+  //없으면 로긴 안됬다는 거니까 알맞은 버튼 보여준다.
+  else{
+    $('#btn-logout').hide();
+    $('#a-mypage').hide();
+  }
 }
 
+function LogOut(){
+  var token = getCookie('token');
+  if (token){
+    // api 서버에 요청 보내서 쿠키 삭제
+    axios({
+        url: 'http://localhost:8000/api/members/logout',
+        headers: {
+          'Authorization': 'Token ' + getCookie('token')
+        }
+      })
+      .then(function(response){
+        console.log(response)
+        // 브라우저 에서 쿠키 삭제
+        setCookie('token', '', '-1');
+        window.location.reload()
+      })
+      .catch(function(error){
+        console.log(error)
+    });
 
+
+
+  }
+  else{
+  }
+
+}
 </script>
 
 
@@ -40,7 +59,7 @@ else{
   </div>
 
   <div style="float:left; display:inline-block; padding:10px 10px;" >
-          <a id="a-signin" href="signin_page.html" class="btn btn-primary" >회원가입</a>
+          <a id="a-signup" href="signup_page.html" class="btn btn-primary" >회원가입</a>
   </div>
 
   <div style="float:left; display:inline-block; padding:10px 10px;" >
