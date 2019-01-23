@@ -37,12 +37,19 @@
          var re3= /^[0-9]*$/;// 이메일이 적합한지 검사할 정규식
 
 
-         var username = document.getElementById("username");
-         var password = document.getElementById("password");
-         var password2 = document.getElementById("password2");
-         var email = document.getElementById("email");
-         var phone_number = document.getElementById("phone_number");
+         var username = document.getElementById("username")
+         var password = document.getElementById("password")
+         var password2 = document.getElementById("password2")
+         var email = document.getElementById("email")
+         var phone_number = document.getElementById("phone_number")
 
+
+         // ajax 로 요청 보내기 위해 .value값으로 다시 받아봄.
+         var username_re = document.getElementById("username").value;
+         var password_re = document.getElementById("password").value;
+         var password2_re = document.getElementById("password2").value;
+         var email_re = document.getElementById("email").value;
+         var phone_number_re = document.getElementById("phone_number").value;
 
 
          // ------------ 이메일 까지 -----------
@@ -78,11 +85,88 @@
              return false;
          }
 
-         if(!check(re3, phone_number, "적합하지 않은 핸드폰 번호 형식입니다. - 없이 숫자만 입력해 주세요")) {
+         if(!check(re3, phone_number, "적합하지 않은 핸드폰 번호 형식입니다. - 없이 숫자만 입력해 주세요")){
              return false;
          }
 
-         alert("회원가입이 완료되었습니다.");
+
+        // // 이하 중복성 체크를 위해 axios사용 (아예 서버사이드에 가입요청 비슷한거 보내봐서 전체 체크 )  -> 실패
+        // axios({
+        //   method: 'post',
+        //   url: 'http://localhost:8000/api/members/signup-server-test',
+        //   headers: {
+        //     'Content-Type': 'application/json '
+        //   },
+        //   data: {
+        //           "username":username,
+        //           "email":email,
+        //           "password":password,
+        //           "password2":password2,
+        //           "phone_number":phone_number
+        //           }
+        //
+        // })
+        // .then(function (response){
+        //   console.log(response);
+        //   alert("회원가입이 완료되었습니다.");
+        //   // window.location.reload()
+        // })
+        // .catch(function(error){
+        //   console.log(error);
+        //   alert("중복방지 ");
+        //   // return false;
+        // })
+
+
+        // window.location.assign("http://localhost:3001/index.html");
+
+
+      // 이하 ajax 사용해서 아이디 중복검사 서버단에서 해보고 싶다.
+      // $(function() {
+      //     $("#requestBtn").on("click", function() {
+
+              var bool = false;
+
+              $.ajax({
+                  url: "http://localhost:8000/api/members/signup-server-test", // 클라이언트가 요청을 보낼 서버의 URL 주소
+                  data: {
+                            username:username_re,
+                            email:email_re,
+                            password:password_re,
+                            password2:password2_re,
+                            phone_number:phone_number_re
+                            },                // HTTP 요청과 함께 서버로 보낼 데이터
+                  async:false,
+                  type: "POST",                             // HTTP 요청 방식(GET, POST)
+                  dataType: "json" ,                        // 서버에서 보내줄 데이터의 타입
+
+                  // success: function (data) {
+                  //
+                  // },
+                  // error: function (data) {
+                  //
+                  // },
+                  // timeout: 2000
+
+              })
+
+
+
+              .done(function() {
+                  alert("요청 성공");
+                  bool=true
+              })
+              .fail(function() {
+                  alert("요청 실패");
+                  bool = false;
+              })
+              .always(function() {
+                  alert("요청 완료");
+              });
+
+              return bool;
+     //      });
+     //  });
      }
 
      function check(re, what, message) {
@@ -95,13 +179,9 @@
          //return false;
      }
 
-    // function check_duplication_username(what){
-    //
-    //   }
-    //
-    // function check_duplication_phone_number{
-    //
-    //  }
+
+
+
 
   </script>
 
