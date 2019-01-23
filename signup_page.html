@@ -126,6 +126,7 @@
       //     $("#requestBtn").on("click", function() {
 
               var bool = false;
+              var message = ""
 
               $.ajax({
                   url: "http://localhost:8000/api/members/signup-server-test", // 클라이언트가 요청을 보낼 서버의 URL 주소
@@ -140,29 +141,33 @@
                   type: "POST",                             // HTTP 요청 방식(GET, POST)
                   dataType: "json" ,                        // 서버에서 보내줄 데이터의 타입
 
-                  // success: function (data) {
-                  //
-                  // },
-                  // error: function (data) {
-                  //
-                  // },
+                  success: function (data) {
+                      bool=true
+                  },
+                  error: function (data) {
+                      bool = false;
+
+                        if (data.responseJSON.username)
+                          alert("아이디: " + JSON.stringify(data.responseJSON.username[0]));
+
+                        if (data.responseJSON.email)
+                          alert("email: " + JSON.stringify(data.responseJSON.email[0]));
+
+                        if (data.responseJSON.phone_number)
+                          alert("phone_number: " + JSON.stringify(data.responseJSON.phone_number[0]));
+
+                  },
                   // timeout: 2000
 
               })
 
+              // .done(function() {
+              //     alert("요청 성공");
+              // })
+              // .fail(function() {
+              //     alert("요청 실패");
+              // });
 
-
-              .done(function() {
-                  alert("요청 성공");
-                  bool=true
-              })
-              .fail(function() {
-                  alert("요청 실패");
-                  bool = false;
-              })
-              .always(function() {
-                  alert("요청 완료");
-              });
 
               return bool;
      //      });
