@@ -93,41 +93,6 @@
          }
 
 
-        // // 이하 중복성 체크를 위해 axios사용 (아예 서버사이드에 가입요청 비슷한거 보내봐서 전체 체크 )  -> 실패
-        // axios({
-        //   method: 'post',
-        //   url: 'http://localhost:8000/api/members/signup-server-test',
-        //   headers: {
-        //     'Content-Type': 'application/json '
-        //   },
-        //   data: {
-        //           "username":username,
-        //           "email":email,
-        //           "password":password,
-        //           "password2":password2,
-        //           "phone_number":phone_number
-        //           }
-        //
-        // })
-        // .then(function (response){
-        //   console.log(response);
-        //   alert("회원가입이 완료되었습니다.");
-        //   // window.location.reload()
-        // })
-        // .catch(function(error){
-        //   console.log(error);
-        //   alert("중복방지 ");
-        //   // return false;
-        // })
-
-
-        // window.location.assign("http://localhost:3001/index.html");
-
-
-      // 이하 ajax 사용해서 아이디 중복검사 서버단에서 해보고 싶다.
-      // $(function() {
-      //     $("#requestBtn").on("click", function() {
-
               var bool = false;
               var message = ""
 
@@ -160,19 +125,8 @@
                           alert("phone_number: " + JSON.stringify(data.responseJSON.phone_number[0]));
 
                   },
-                  // timeout: 2000
 
               })
-
-              // .done(function() {
-              //     alert("요청 성공");
-              // })
-              // .fail(function() {
-              //     alert("요청 실패");
-              // });
-
-
-
 
                 return bool;
 
@@ -196,7 +150,6 @@
 
  // 이하에서는 form의 submit버튼 누르면 일어나는 동작 ~ validate()호출 및 post 하는것 작성 하겠다.
 
-// 첫시도
    $(function(){
      $('#join').ajaxForm({
        beforeSubmit : function() {
@@ -209,51 +162,6 @@
        }
      });
    });
-
-
-//둘시도
-   // function test(){
-   //
-   //  var param = $("form[name=join]").serialize();
-   //
-   //  $.ajax({
-   //    type: "POST"
-   //   ,url: "http://localhost:8000/api/members/signup"
-   //   ,data: param,
-   //   ,dataType: "json"
-   //
-   //   ,success:function(data){
-   //     alert("성공");
-   //   }
-   //   ,error:function(data){
-   //     alert("error");
-   //   }
-   //   });
-   // }
-
-
-  // 셋시도
-
-   // function formSubmit() {
-   //     var params = jQuery("#join").serialize(); // serialize() : 입력된 모든Element(을)를 문자열의 데이터에 serialize 한다.
-   //     $.ajax({
-   //         url: 'http://localhost:8000/api/members/signup',
-   //         async:false,
-   //         type: 'POST',
-   //         data:params,
-   //         dataType: 'json',
-   //           beforeSubmit: function(){
-   //             alert('서브밋 직전입니다!');
-   //           },
-   //           success:function(data){
-   //             alert("성공");
-   //           },
-   //           error:function(data){
-   //             alert("error");
-   //           }
-   //        });
-   //     };
-
 
 
   </script>
@@ -291,8 +199,6 @@
         <labal for="phone_number">phone_number</labal>
         <input name="phone_number" type="text" class="form-control" id="phone_number">
 
-         <!-- <meta http-equiv="refresh" content="0; url=http://localhost:3001" /> -->
-        <!-- <button type="submit" class="btn btn-primary btn-block">회원가입</button> -->
         <input type="submit" class="btn btn-primary btn-block" value="회원가입" >
 
 
