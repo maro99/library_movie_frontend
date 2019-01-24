@@ -27,6 +27,9 @@
     <!-- get_token -->
     <script src="js/token.js"></script>
 
+    <!-- jquery form -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+
 </head>
 <body>
 
@@ -169,7 +172,10 @@
               // });
 
 
-              return bool;
+
+
+                return bool;
+
      //      });
      //  });
      }
@@ -185,6 +191,68 @@
      }
 
 
+
+
+
+ // 이하에서는 form의 submit버튼 누르면 일어나는 동작 ~ validate()호출 및 post 하는것 작성 하겠다.
+
+// 첫시도
+   $(function(){
+     $('#join').ajaxForm({
+       beforeSubmit : function() {
+         // alert('서브밋 직전입니다!');
+         return validate()
+       },
+       success : function() {
+         // alert('전송 성공!');
+         window.location.href = 'index.html';
+       }
+     });
+   });
+
+
+//둘시도
+   // function test(){
+   //
+   //  var param = $("form[name=join]").serialize();
+   //
+   //  $.ajax({
+   //    type: "POST"
+   //   ,url: "http://localhost:8000/api/members/signup"
+   //   ,data: param,
+   //   ,dataType: "json"
+   //
+   //   ,success:function(data){
+   //     alert("성공");
+   //   }
+   //   ,error:function(data){
+   //     alert("error");
+   //   }
+   //   });
+   // }
+
+
+  // 셋시도
+
+   // function formSubmit() {
+   //     var params = jQuery("#join").serialize(); // serialize() : 입력된 모든Element(을)를 문자열의 데이터에 serialize 한다.
+   //     $.ajax({
+   //         url: 'http://localhost:8000/api/members/signup',
+   //         async:false,
+   //         type: 'POST',
+   //         data:params,
+   //         dataType: 'json',
+   //           beforeSubmit: function(){
+   //             alert('서브밋 직전입니다!');
+   //           },
+   //           success:function(data){
+   //             alert("성공");
+   //           },
+   //           error:function(data){
+   //             alert("error");
+   //           }
+   //        });
+   //     };
 
 
 
@@ -207,7 +275,7 @@
     <div>
       <h1>signup_page</h1>
 
-      <form name="join" onsubmit="return validate()" action="http://localhost:8000/api/members/signup" method="POST">
+      <form  name="join" action="http://localhost:8000/api/members/signup" id="join" method="post">
         <labal for="username">아이디</labal>
         <input name="username" type="text" class="form-control" id="username">
 
@@ -224,7 +292,9 @@
         <input name="phone_number" type="text" class="form-control" id="phone_number">
 
          <!-- <meta http-equiv="refresh" content="0; url=http://localhost:3001" /> -->
-        <button type="submit" class="btn btn-primary btn-block">회원가입</button>
+        <!-- <button type="submit" class="btn btn-primary btn-block">회원가입</button> -->
+        <input type="submit" class="btn btn-primary btn-block" value="회원가입" >
+
 
 
 
