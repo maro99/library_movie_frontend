@@ -27,10 +27,35 @@
     <!-- get_token -->
     <script src="js/token.js"></script>
 
+    <!-- jquery form -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+
+    <!-- login token -->
+    <script src="js/token.js"></script>
 </head>
 <body>
 
+  <script>
 
+  $(function(){
+    $('#login').ajaxForm({
+      beforeSubmit : function() {
+        // alert('서브밋 직전입니다!');
+        // return validate()
+      },
+      success : function(response) {
+        // alert(response.token);
+        var token = response.token;
+        setCookie('token',token,10);
+        window.location.href = 'index.html';
+      },
+      error: function (data) {
+        alert("아이디 혹은 비밀번호가 올바르지 않습니다. ")
+      }
+    });
+  });
+
+  </script>
 
 
   <div class="container">

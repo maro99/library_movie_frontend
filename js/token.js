@@ -1,5 +1,5 @@
 function getToken(username, password){
-  axios.post('http://localhost:8000/api/members/auth-token',{
+  axios.post('http://localhost:8000/api/members/login',{
   username: username,
   password: password,
 })
