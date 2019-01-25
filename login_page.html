@@ -47,9 +47,16 @@
 
 
     <div>
-      <h1>login_page</h1>
-    </div>
+      <h2> 로그인 </h2>
 
+      <form name="login" id="login" action="http://localhost:8000/api/members/login" method="POST">
+          <labal for="username">아이디</labal>
+          <input type="id" name = "username" id="username"  class="form-control">
+          <labal for="username">패스워드</labal>
+          <input type="password" name = "password" id="password"  class="form-control">
+          <button type="submit" class="btn btn-primary btn-block">일반 로그인</button>
+      </form>
+    </div>
   </div>
 
 
