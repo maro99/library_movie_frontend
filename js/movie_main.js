@@ -19,33 +19,41 @@
   var movie_list = [];
   var token = getCookie('token');
   if (token) {
-    // User정보는 auth_test API에서 받아옴
-    axios({
-      method: 'get',
-      url: 'http://localhost:8000/api/members/auth-test',
-      headers: {
-        'Authorization': 'Token ' + getCookie('token')
-      }
-    })
-    .then(function (response) {
-      is_login = true;
-
-      // 어떤 영화 찜했는지 pk 목록 빼서 movie_list변수에 저장.
-      for (var i=0; i< response.data.movie.length; i++) {
-          // alert(JSON.stringify(response.data.movie[i].pk));
-          movie_list[i]= response.data.movie[i].pk;
-        }
-
-    })
-    .catch(function (error) {
-      is_login = false;
-    });
+      update_user_movie_list()
   }
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
+  // User 영화 좋아요 정보 최신화 하는 함수
+function update_user_movie_list(){
+
+  axios({
+    method: 'get',
+    url: 'http://localhost:8000/api/members/auth-test',
+    headers: {
+      'Authorization': 'Token ' + getCookie('token')
+    }
+  })
+  .then(function (response) {
+    is_login = true;
+
+    // 어떤 영화 찜했는지 pk 목록 빼서 movie_list변수에 저장.
+    for (var i=0; i< response.data.movie.length; i++) {
+        // alert(JSON.stringify(response.data.movie[i].pk));
+        movie_list[i]= response.data.movie[i].pk;
+      }
+
+  })
+  .catch(function (error) {
+    is_login = false;
+  });
+}
+
+
+
+
 // 찜하는 부분 관련 ajax
-// header추가 위해 이렇게 빼줌. 
+// header추가 위해 이렇게 빼줌.
 function movie_like(pk){
   var headers = {};
   headers["Authorization"] = "Token " + token;
