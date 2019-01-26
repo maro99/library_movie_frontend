@@ -1,5 +1,6 @@
 // 찜버튼 보일지 말지 판별하는 부분들
 
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //   일일이 버튼마다 요청하는것은 바보같은 짓이고
 // 1. auth_test로 프로필 받을때 찜한 영화pk도 가져오자.
 // https://www.django-rest-framework.org/api-guide/relations/
@@ -18,7 +19,7 @@
   var movie_list = [];
   var token = getCookie('token');
   if (token) {
-    // User정보는 Profile API에서 받아옴
+    // User정보는 auth_test API에서 받아옴
     axios({
       method: 'get',
       url: 'http://localhost:8000/api/members/auth-test',
@@ -29,6 +30,7 @@
     .then(function (response) {
       is_login = true;
 
+      // 어떤 영화 찜했는지 pk 목록 빼서 movie_list변수에 저장.
       for (var i=0; i< response.data.movie.length; i++) {
           // alert(JSON.stringify(response.data.movie[i].pk));
           movie_list[i]= response.data.movie[i].pk;
@@ -39,10 +41,31 @@
       is_login = false;
     });
   }
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+// 찜하는 부분 관련 ajax
+// header추가 위해 이렇게 빼줌. 
+function movie_like(pk){
+  var headers = {};
+  headers["Authorization"] = "Token " + token;
+
+ $.ajax({
+   type: "POST"
+  ,url: "http://localhost:8000/api/members/movie-like/" + pk
+  ,async:false
+  ,dataType: "json"
+  ,headers : headers
+  });
+}
 
 
 
 
+
+
+// 영화 띄워주는 부분들
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   // /api/movies/main_page_by_date/에 GET 요쳥
   axios.get('http://localhost:8000/api/movies/main_page_by_date')
     // 성공시
@@ -81,18 +104,20 @@
 
             // 로긴 했었는지 판별
             if (is_login){
-              curElement +=    `<div style="float:right; display:inline-block;" >`
-
+              curElement +=    `<div style="float:right; display:inline-block;" >
+                                    <form name="like">`
+// action="http://localhost:8000/api/members/movie-like/${curMovie.pk}"
 
               // 찜 했었는지 판별해서 버튼 보임
               if (movie_list.includes(curMovie.pk)){
-                      curElement += `<button type="submit" class="btn btn-danger btn-xs" >찜취소</button>`
+                      curElement += `<button type="submit"  onclick="movie_like(${curMovie.pk})" class="btn btn-danger btn-xs" >찜취소</button>`
                   }
               else{
-                      curElement += `<button type="submit" class="btn btn-success btn-xs" >찜하기</button>`
+                      curElement += `<button type="submit" onclick="movie_like(${curMovie.pk})" class="btn btn-success btn-xs" >찜하기</button>`
               }
 
-              curElement +=     `</div>`
+              curElement +=     `   </form>
+                                  </div>`
             }
 
 
@@ -113,3 +138,4 @@
     .catch(function (error) {
       console.log(error);
     });
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
