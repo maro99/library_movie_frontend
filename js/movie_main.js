@@ -28,13 +28,15 @@
 function update_user_movie_list(){
 
   axios({
-    method: 'get',
-    url: 'http://localhost:8000/api/members/auth-test',
-    headers: {
+    method: 'get'
+    ,url: 'http://localhost:8000/api/members/auth-test'
+    // ,async:false
+    ,headers: {
       'Authorization': 'Token ' + getCookie('token')
     }
   })
   .then(function (response) {
+
     is_login = true;
 
     // 어떤 영화 찜했는지 pk 목록 빼서 movie_list변수에 저장.
@@ -43,6 +45,7 @@ function update_user_movie_list(){
         movie_list[i]= response.data.movie[i].pk;
       }
 
+      alert("사용자 찜목록 최신화 됨.");
   })
   .catch(function (error) {
     is_login = false;
@@ -54,16 +57,41 @@ function update_user_movie_list(){
 
 // 찜하는 부분 관련 ajax
 // header추가 위해 이렇게 빼줌.
-function movie_like(pk){
+function movie_like(pk,e){
   var headers = {};
   headers["Authorization"] = "Token " + token;
-
+ e.preventDefault();
  $.ajax({
    type: "POST"
   ,url: "http://localhost:8000/api/members/movie-like/" + pk
-  ,async:false
+  // ,async:false
   ,dataType: "json"
   ,headers : headers
+  ,success: function(response){ // 통신 성공시 - 동적으로 좋아요 갯수 변경, 유저 목록 변경
+          alert("좋아요버튼 클릭 됨");
+          update_user_movie_list();
+          $("#like_area-"+pk).html(response);
+// $("#count-"+pk).html(response.like_count+"개");
+          // $("#like_area").load();
+          // $("#count-"+pk).html(response.like_count+"개");
+          // var users = $("#like-user-"+pk).text();
+          // if(users.indexOf(response.nickname) != -1){
+          //   $("#like-user-"+pk).text(users.replace(response.nickname, ""));
+          // }else{
+          //   $("#like-user-"+pk).text(response.nickname+users);
+          // }
+
+        }
+   ,error: function(response){ // 통신 실패시 - 로그인 페이지 리다이렉트
+    // alert("좋아요버튼 클릭 됨");
+    alert(JSON.stringify(response))
+    // window.location.replace("/accounts/login/")
+    //  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+  },
+  // complete: function () {
+  //     window.location.href = "www.google.com";
+  // },
+
   });
 }
 
@@ -112,16 +140,16 @@ function movie_like(pk){
 
             // 로긴 했었는지 판별
             if (is_login){
-              curElement +=    `<div style="float:right; display:inline-block;" >
+              curElement +=    `<div id="like_area-${curMovie.pk}" style="float:right; display:inline-block;" >
                                     <form name="like">`
 // action="http://localhost:8000/api/members/movie-like/${curMovie.pk}"
 
               // 찜 했었는지 판별해서 버튼 보임
               if (movie_list.includes(curMovie.pk)){
-                      curElement += `<button type="submit"  onclick="movie_like(${curMovie.pk})" class="btn btn-danger btn-xs" >찜취소</button>`
+                      curElement += `<button type="submit"  onclick="movie_like(${curMovie.pk}, event)" class="btn btn-danger btn-xs" >찜취소</button>`
                   }
               else{
-                      curElement += `<button type="submit" onclick="movie_like(${curMovie.pk})" class="btn btn-success btn-xs" >찜하기</button>`
+                      curElement += `<button type="submit" onclick="movie_like(${curMovie.pk}, event)" class="btn btn-success btn-xs" >찜하기</button>`
               }
 
               curElement +=     `   </form>
