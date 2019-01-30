@@ -30,7 +30,7 @@ function update_user_movie_list(){
   axios({
     method: 'get'
     ,url: 'http://localhost:8000/api/members/auth-test'
-    // ,async:false
+    ,async:false
     ,headers: {
       'Authorization': 'Token ' + getCookie('token')
     }
@@ -48,9 +48,15 @@ function update_user_movie_list(){
       alert("사용자 찜목록 최신화 됨.");
   })
   .catch(function (error) {
-    is_login = false;
+    // is_login = false;
   });
 }
+
+
+//
+// $("like").click(function() {
+//     $("#like_area-${curMovie.pk}").load("index.html"); // 예) .load("test/test.php");
+// })
 
 
 
@@ -70,7 +76,7 @@ function movie_like(pk,e){
   ,success: function(response){ // 통신 성공시 - 동적으로 좋아요 갯수 변경, 유저 목록 변경
           alert("좋아요버튼 클릭 됨");
           update_user_movie_list();
-          $("#like_area-"+pk).html(response);
+
 // $("#count-"+pk).html(response.like_count+"개");
           // $("#like_area").load();
           // $("#count-"+pk).html(response.like_count+"개");
@@ -88,10 +94,20 @@ function movie_like(pk,e){
     // window.location.replace("/accounts/login/")
     //  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
   },
-  // complete: function () {
-  //     window.location.href = "www.google.com";
-  // },
-
+  complete: function (response) {
+      // window.location.href = "www.google.com";
+    // 서버로 부터 받은 값 비교해서 삭제인지 ~ 추가인지 판단해서 맞게 a테그 업데이트 해주겠다.
+    var return_message = JSON.stringify(response.responseJSON.detail)
+    if (return_message=='"찜목록에서 삭제 되었습니다. "'){
+      // alert('deleted')
+      // $("#like_area-"+pk).html(response);
+      $("#like_area-"+pk).html(`<button id="like_area-${pk}" type="submit" onclick="movie_like(${pk}, event)" class="btn btn-success btn-xs" >찜하기</button>`);
+      }
+    else{
+      // $("#like_area-"+pk).html(response);
+      $("#like_area-"+pk).html(`<button id="like_area-${pk}" type="submit"  onclick="movie_like(${pk}, event)" class="btn btn-danger btn-xs" >찜취소</button>`);
+      }
+    },
   });
 }
 
@@ -106,6 +122,8 @@ function movie_like(pk,e){
   axios.get('http://localhost:8000/api/movies/main_page_by_date')
     // 성공시
     .then(function(response) {
+
+      // $('.content').append(`<h1>${is_login}</h1>`);
       // response.data 가 가진 요소들을 순회
       for (var i=0; i< response.data.length; i++) {
         // 각 순회에 해당하는 요소는 curMovie
@@ -118,7 +136,7 @@ function movie_like(pk,e){
         var when_time =  when_time_pre_list[0] +":"+when_time_pre_list[1]
         var when = when_date +" "+ when_time
 
-        var curElement = `<div class="col-4 mb-3">
+        var curElement = `<div class="col-4 mb-3" >
                             <a href="movie_detail.html?${curMovie.pk}"><div class="card-img-top" style="height: 177px; width: 309px; background-image: url('${curMovie.thumbnail_url}'); background-size: cover;">`
 
 
@@ -140,16 +158,18 @@ function movie_like(pk,e){
 
             // 로긴 했었는지 판별
             if (is_login){
-              curElement +=    `<div id="like_area-${curMovie.pk}" style="float:right; display:inline-block;" >
-                                    <form name="like">`
+              curElement +=    `<div  style="float:right; display:inline-block;" >
+                                    <form id="like_area-${curMovie.pk}" name="like">`
 // action="http://localhost:8000/api/members/movie-like/${curMovie.pk}"
 
               // 찜 했었는지 판별해서 버튼 보임
               if (movie_list.includes(curMovie.pk)){
-                      curElement += `<button type="submit"  onclick="movie_like(${curMovie.pk}, event)" class="btn btn-danger btn-xs" >찜취소</button>`
+                      curElement += `<button  type="submit"  onclick="movie_like(${curMovie.pk}, event)" class="btn btn-danger btn-xs" >찜취소</button>`
+                      // curElement += `<button  type="submit" onclick="movie_like(${curMovie.pk}, event)" class="btn btn-success btn-xs" >찜하기</button>`
                   }
               else{
-                      curElement += `<button type="submit" onclick="movie_like(${curMovie.pk}, event)" class="btn btn-success btn-xs" >찜하기</button>`
+                      // curElement += `<button  type="submit"  onclick="movie_like(${curMovie.pk}, event)" class="btn btn-danger btn-xs" >찜취소</button>`
+                      curElement += `<button id="like_area-${curMovie.pk}" type="submit" onclick="movie_like(${curMovie.pk}, event)" class="btn btn-success btn-xs" >찜하기</button>`
               }
 
               curElement +=     `   </form>
