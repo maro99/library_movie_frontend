@@ -1,3 +1,5 @@
+
+
 // 영화 띄워주는 부분들
 
   // /api/movies/main_page_by_date/에 GET 요쳥
@@ -5,7 +7,6 @@
     // 성공시
     .then(function(response) {
 
-      // $('.content').append(`<h1>${is_login}</h1>`);
       // response.data 가 가진 요소들을 순회
       for (var i=0; i< response.data.length; i++) {
         // 각 순회에 해당하는 요소는 curMovie
@@ -22,17 +23,14 @@
                             <a href="movie_detail.html?${curMovie.pk}"><div class="card-img-top" style="height: 177px; width: 309px; background-image: url('${curMovie.thumbnail_url}'); background-size: cover;">`
 
             // 로긴 했었는지 판별
-            if (is_login){
+          if (is_login){
               curElement +=    `<div  style="float:right; display:inline-block;" >
                                     <form id="like_area-${curMovie.pk}" name="like">`
-
               // 찜 했었는지 판별해서 버튼 보임
               if (movie_list.includes(curMovie.pk)){
                       curElement += `<button  type="submit"  onclick="movie_like(${curMovie.pk}, event)" class="btn btn-danger btn-xs" >찜취소</button>`
-                      // curElement += `<button  type="submit" onclick="movie_like(${curMovie.pk}, event)" class="btn btn-success btn-xs" >찜하기</button>`
                   }
               else{
-                      // curElement += `<button  type="submit"  onclick="movie_like(${curMovie.pk}, event)" class="btn btn-danger btn-xs" >찜취소</button>`
                       curElement += `<button id="like_area-${curMovie.pk}" type="submit" onclick="movie_like(${curMovie.pk}, event)" class="btn btn-success btn-xs" >찜하기</button>`
               }
 
@@ -40,14 +38,13 @@
                                   </div>`
             }
 
+          curElement +=    `</div></a>
+                              <div class="card-body">
+                                  <h5 class="card-title">${curMovie.title}</h5>
+                                  <p class="card-text">${when}</p>
+                              </div>
 
-        curElement +=    `</div></a>
-                            <div class="card-body">
-                                <h5 class="card-title">${curMovie.title}</h5>
-                                <p class="card-text">${when}</p>
-                            </div>
-
-                          </div>`;
+                            </div>`;
 
         $('.content').append(curElement);
       }

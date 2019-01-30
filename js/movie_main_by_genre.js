@@ -39,13 +39,32 @@ axios.get('http://localhost:8000/api/movies/main_page_by_genre')
               var when_time =  when_time_pre_list[0] +":"+when_time_pre_list[1]
               var when = when_date +" "+ when_time
 
-              curElement  = ` <div class="col-4 mb-3">`
-              curElement += `     <a href="movie_detail.html?${curMovie.pk}"><div class="card-img-top" style="height: 177px; width: 309px; background-image: url('${curMovie.thumbnail_url}'); background-size: cover;"></div></a>`
-              curElement += `     <div class="card-body">`
-              curElement += `       <h5 class="card-title">${curMovie.title}</h5>`
-              curElement += `       <p class="card-text">${when}</p>`
-              curElement += `     </div>`
-              curElement += ` </div>`;
+              var curElement = `<div class="col-4 mb-3" >
+                                  <a href="movie_detail.html?${curMovie.pk}"><div class="card-img-top" style="height: 177px; width: 309px; background-image: url('${curMovie.thumbnail_url}'); background-size: cover;">`
+
+                  // 로긴 했었는지 판별
+                if (is_login){
+                    curElement +=    `<div  style="float:right; display:inline-block;" >
+                                          <form id="like_area-${curMovie.pk}" name="like">`
+                    // 찜 했었는지 판별해서 버튼 보임
+                    if (movie_list.includes(curMovie.pk)){
+                            curElement += `<button  type="submit"  onclick="movie_like(${curMovie.pk}, event)" class="btn btn-danger btn-xs" >찜취소</button>`
+                        }
+                    else{
+                            curElement += `<button id="like_area-${curMovie.pk}" type="submit" onclick="movie_like(${curMovie.pk}, event)" class="btn btn-success btn-xs" >찜하기</button>`
+                    }
+
+                    curElement +=     `   </form>
+                                        </div>`
+                  }
+
+                curElement +=    `</div></a>
+                                    <div class="card-body">
+                                        <h5 class="card-title">${curMovie.title}</h5>
+                                        <p class="card-text">${when}</p>
+                                    </div>
+
+                                  </div>`;
 
               curGenreBlock += curElement
             }

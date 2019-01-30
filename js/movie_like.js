@@ -4,6 +4,7 @@
   var token = getCookie('token');
   if (token) {
       update_user_movie_list()
+      is_login = true;
   }
 
 
@@ -31,7 +32,7 @@ function update_user_movie_list(){
       // alert("사용자 찜목록 최신화 됨.");
   })
   .catch(function (error) {
-    // is_login = false;
+    is_login = false;
   });
 }
 

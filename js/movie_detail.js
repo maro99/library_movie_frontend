@@ -1,19 +1,3 @@
-// // /api/movies/main_page_by_date/에 GET 요쳥
-// axios.get('http://localhost:8000/api/movies/main_page_by_date')
-//   // 성공시
-//   .then(function(response) {
-//       temp=location.href.split("?")
-//       data = temp[1]
-//       $('.content').append(data);
-//
-//   })
-//
-//   // 실패시
-//   .catch(function (error) {
-//     console.log(error);
-//   });
-//
-
 
   var temp=location.href.split("?")
   var pk = temp[1]
@@ -39,6 +23,22 @@
 
         var curElement = `<div class="card bg-dark text-white">`
         curElement += `<div class="card-img-top" style="height: 354px; width: 618px; background-image: url('${curMovie.thumbnail_url}'); margin: 20px;  background-size: cover;"> `
+
+          // 로긴 했었는지 판별
+          if (is_login){
+              curElement +=    `<div  style="float:right; display:inline-block;" >
+                                    <form id="like_area-${curMovie.pk}" name="like">`
+              // 찜 했었는지 판별해서 버튼 보임
+              if (movie_list.includes(curMovie.pk)){
+                      curElement += `<button  type="submit"  onclick="movie_like(${curMovie.pk}, event)" class="btn btn-danger btn-xs" >찜취소</button>`
+                  }
+              else{
+                      curElement += `<button id="like_area-${curMovie.pk}" type="submit" onclick="movie_like(${curMovie.pk}, event)" class="btn btn-success btn-xs" >찜하기</button>`
+              }
+              curElement +=     `   </form>
+                                  </div>`
+            }
+
         curElement     +=   `</div>`
         curElement     +=   `<div class="card-body">`
         curElement     +=   ` <h4 class="card-title">${curMovie.title}</h4>`
