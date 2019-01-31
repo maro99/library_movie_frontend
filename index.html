@@ -37,28 +37,8 @@
 
 </head>
 <body>
-  <script>
-  // 로긴상태 먼저 확인
-  var is_login = false;
-  var token = getCookie('token');
-  if (token) {
-    // User정보는 Profile API에서 받아옴
-    axios({
-      method: 'get',
-      url: 'http://localhost:8000/api/members/auth-test',
-      headers: {
-        'Authorization': 'Token ' + getCookie('token')
-      }
-    })
-    .then(function (response) {
-      is_login = true;
-    })
-    .catch(function (error) {
-      is_login = false;
-    });
-  }
-  </script>
 
+  
 
 
   <div class="container">

@@ -1,3 +1,25 @@
+// // 로긴상태 먼저 확인
+// //(이거 하면 요청 오고가는데 시간 걸려셔 is_true전환전에 화면페이지 띄울지 판별해서 오류생기는듯.)
+// var is_login = false;
+// var token = getCookie('token');
+// if (token) {
+//   // User정보는 Profile API에서 받아옴
+//   axios({
+//     method: 'get',
+//     url: 'http://localhost:8000/api/members/auth-test',
+//     headers: {
+//       'Authorization': 'Token ' + getCookie('token')
+//     }
+//   })
+//   .then(function (response) {
+//     is_login = true;
+//   })
+//   .catch(function (error) {
+//     is_login = false;
+//   });
+// }
+
+
 // 로긴상태 먼저 확인
   var is_login = false;
   var movie_list = [];
@@ -6,6 +28,7 @@
       update_user_movie_list()
       is_login = true;
   }
+
 
 
   // User 영화 좋아요 정보 최신화 하는 함수
@@ -20,7 +43,6 @@ function update_user_movie_list(){
     }
   })
   .then(function (response) {
-
     is_login = true;
 
     // 어떤 영화 찜했는지 pk 목록 빼서 movie_list변수에 저장.
