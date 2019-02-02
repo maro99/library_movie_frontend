@@ -1,4 +1,3 @@
-
 // 로긴상태 먼저 확인
   var is_login = false;
   var movie_list = [];
@@ -8,7 +7,47 @@
       is_login = true;
   }
   else{
-    await_movie_show_detail_page();
+    await_show_movie_page();
+  }
+
+
+  // update_user_movie_list() +  movie_show_detail_page 된건데 일단 이렇게 써주겠슴.
+  async function init_function_if_login(){
+    // alert('1')
+    await await_update_user_movie_list()
+    // alert('2')
+    await await_show_movie_page()
+    // alert('3')
+  }
+
+
+  function await_update_user_movie_list(){
+    return new Promise(function(resolve, reject){
+        axios({
+            method: 'get'
+            ,url: 'http://localhost:8000/api/members/auth-test'
+            // ,async:false
+            ,headers: {
+              'Authorization': 'Token ' + token
+            }
+          })
+          .then(function (response) {
+            is_login = true;
+
+            // 어떤 영화 찜했는지 pk 목록 빼서 movie_list변수에 저장.
+            for (var i=0; i< response.data.movie.length; i++) {
+                // alert(JSON.stringify(response.data.movie[i].pk));
+                movie_list[i]= response.data.movie[i].pk;
+              }
+
+            // alert("1. 사용자 찜목록 최신화 됨.");
+            resolve("async는 Promise방식을 사용합니다.");
+          })
+          .catch(function (error) {
+            is_login = false;
+            resolve("async는 Promise방식을 사용합니다.");
+          });
+      });
   }
 
 
