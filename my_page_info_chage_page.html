@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+    <title>Document</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.css">
     <!-- axios -->
@@ -27,6 +27,12 @@
     <!-- get_token -->
     <script src="js/token.js"></script>
 
+    <!-- jquery form  for signup validation and redirect -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+
+    <!-- signup js -->
+    <script src="js/signup_page.js"></script>
+
 </head>
 <body>
 
@@ -48,7 +54,25 @@
 
     <div>
       <h3>회원정보수정</h3>
+        <form  name="join" action="http://localhost:8000/api/members/signup" id="join" method="post">
+          <labal for="username">아이디</labal>
+          <input name="username" type="text" class="form-control" id="username">
 
+          <labal for="email">email</labal>
+          <input name="email" type="text" class="form-control" id="email">
+
+          <labal for="password">패스워드</labal>
+          <input name="password" type="password" class="form-control" id="password">
+
+          <labal for="password2">패스워드확인</labal>
+          <input name="password2" type="password" class="form-control"  id="password2">
+
+          <labal for="phone_number">휴대전화번호</labal>
+          <input name="phone_number" type="text" class="form-control" id="phone_number">
+
+          <input type="submit" class="btn btn-primary btn-block" value="회원가입" >
+
+        </form>
     </div>
 
   </div>
