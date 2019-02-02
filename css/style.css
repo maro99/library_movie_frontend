@@ -12,6 +12,8 @@ p {
     color: #6495ED
 }
 
+#info_change_form{ color:#F0FFFF; margin:10px 10px;}
+
 
 
 #gnb{ background:#000000; width:150px; height:40px; line-height:40px; margin:0 auto; }

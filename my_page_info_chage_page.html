@@ -30,11 +30,68 @@
     <!-- jquery form  for signup validation and redirect -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
 
-    <!-- signup js -->
-    <script src="js/signup_page.js"></script>
+  <!-- check_login -->
+    <script src="js/check_login.js"></script>
 
 </head>
 <body>
+
+  <script>
+
+      var username = ""
+      var password = ""
+      var phone_number = ""
+      var email = ""
+
+      var token = getCookie('token');
+
+      axios({
+          method: 'get'
+          ,url: 'http://localhost:8000/api/members/auth-test'
+          // ,async:false
+          ,headers: {
+            'Authorization': 'Token ' + token
+          }
+        })
+        .then(function (response) {
+
+          if(response.data.username){
+            username = response.data.username
+          }
+          if(response.data.password){
+            password = response.data.password
+          }
+          if(response.data.phone_number){
+            phone_number = response.data.phone_number
+          }
+          if(response.data.email){
+            email = response.data.email
+          }
+          // alert(JSON.stringify(response.data))
+          var curElement = `<div id="info_change_form">아이디: ${username}</div>`
+
+          if(password){
+            curElement += `<div id="info_change_form">비밀번호 : <a href="my_page_info_password_change.html" class="btn btn-primary">비밀번호 변경 </a></div>`
+          }
+          if(email){
+            curElement += `<div id="info_change_form">이메일: ${email}  <a href="my_page_info_email_change.html" class="btn btn-primary">이메일 변경 </a></div>`
+          }
+          if(phone_number){
+            curElement += `<div id="info_change_form">휴대폰번호: ${phone_number}  <a href="my_page_info_phonenumber_change.html" class="btn btn-primary">휴대폰번호 변경 </a></div>`
+          }
+
+          $('.user_info').append(curElement);
+
+
+
+
+        })
+        .catch(function (error) {
+
+        });
+
+
+  </script>
 
 
 
@@ -54,25 +111,14 @@
 
     <div>
       <h3>회원정보수정</h3>
-        <form  name="join" action="http://localhost:8000/api/members/signup" id="join" method="post">
-          <labal for="username">아이디</labal>
-          <input name="username" type="text" class="form-control" id="username">
 
-          <labal for="email">email</labal>
-          <input name="email" type="text" class="form-control" id="email">
+      <div class="user_info"></div>
+<!--
+      <a href="my_page_info_chage_page.html" class="btn btn-primary">회원정보수정 </a>
+      <a href="my_page_movie_like_page.html" class="btn btn-primary">찜 목록</a>
+      <a href="my_page_alarm_setting_page.html" class="btn btn-primary">알람설정</a> -->
 
-          <labal for="password">패스워드</labal>
-          <input name="password" type="password" class="form-control" id="password">
 
-          <labal for="password2">패스워드확인</labal>
-          <input name="password2" type="password" class="form-control"  id="password2">
-
-          <labal for="phone_number">휴대전화번호</labal>
-          <input name="phone_number" type="text" class="form-control" id="phone_number">
-
-          <input type="submit" class="btn btn-primary btn-block" value="회원가입" >
-
-        </form>
     </div>
 
   </div>
