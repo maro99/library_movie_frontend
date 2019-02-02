@@ -38,6 +38,14 @@ function await_show_movie_page(){
                                         </div>`
                   }
 
+                else{
+                  curElement +=    `<div  style="float:right; display:inline-block;" >
+                                        <form id="like_area-${curMovie.pk}" name="like">
+                                          <button id="like_area-${curMovie.pk}" type="submit" onclick="movie_like(${curMovie.pk}, event)" class="btn btn-success btn-xs" >찜하기</button>
+                                        </form>
+                                    </div>`
+                }
+
                 curElement +=    `</div></a>
                                     <div class="card-body">
                                         <h5 class="card-title">${curMovie.title}</h5>
