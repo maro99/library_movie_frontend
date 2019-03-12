@@ -19,3 +19,13 @@ function getCookie(cname) {
     }
     return "";
 }
+
+
+function deleteCookie( cookieName )
+{
+ var expireDate = new Date();
+
+ //어제 날짜를 쿠키 소멸 날짜로 설정한다.
+ expireDate.setDate( expireDate.getDate() - 1 );
+ document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString() + "; path=/";
+}
