@@ -17,23 +17,26 @@
       var pre_insert_value = ""
       var button_letter = ""
       var url_part = ""
-      var input_type = "password"
+      var input_type = ""
 
       if (page=="my_page_info_password_change.html"){
         pre_insert_value = "****"
         button_letter = "인증 메일 전송"
+        h5_letter = "새 비밀번호"
         url_part = "password-change"
         input_type = "password"
 
       } else if(page=="my_page_info_email_change.html"){
         pre_insert_value = "example@google.com"
         button_letter = "인증 메일 전송"
+        h5_letter = "새 이메일"
         url_part = "email-change"
         input_type = "email"
 
       } else if(page=="my_page_info_phonenumber_change.html"){
         pre_insert_value = "01011112222"
         button_letter = "인증 문자 전송"
+        h5_letter = "새 휴대전화번호"
         url_part = "phone-number-change"
         input_type = "phone_number"
       }
@@ -52,7 +55,7 @@
 
           // alert(JSON.stringify(response.data))
           var curElement = `<div>
-                              <h5>새 비밀번호</h5>
+                              <h5>${h5_letter}</h5>
                               <form id ="insert_info" name = "info_form">
                                 <input id = "info_input" type=${input_type} name = "info" value=${pre_insert_value}>
                                 <button type="submit" class="btn btn-primary" onclick="info_change(event)" >${button_letter} </button>
