@@ -50,6 +50,10 @@
             console.log('logined');
             loginBtn.value = 'Logout';
             var profile = gauth.currentUser.get().getBasicProfile();
+            window.access_token = gauth.currentUser.get().Zi.access_token
+
+
+      // GoogleUser.reloadAuthResponse()
             nameTxt.innerHTML = 'Welcome <strong>'+profile.getName()+'</strong> ';
 
           } else {
