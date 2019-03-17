@@ -33,60 +33,6 @@
     <!-- login token -->
     <script src="js/token.js"></script>
 
-    <!-- google-login -->
-    <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
-    <!-- <meta name="google-signin-client_id" content="794785785207-r8vurms3eusmib45tvevd22m8v6bjts9.apps.googleusercontent.com"> -->
-    <!-- <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script> -->
-
-    <!-- <meta name="google-signin-client_id" content="62315104129-7bt353qk6di5trvg24jjermgt4lnfdlh.apps.googleusercontent.com"> --> -->
-
-
-    <script>
-
-    function checkLoginStatus(){
-          var loginBtn = document.querySelector('#loginBtn');
-          var nameTxt = document.querySelector('#name');
-          if(gauth.isSignedIn.get()){
-            console.log('logined');
-            loginBtn.value = 'Logout';
-            var profile = gauth.currentUser.get().getBasicProfile();
-            window.access_token = gauth.currentUser.get().Zi.access_token
-
-
-      // GoogleUser.reloadAuthResponse()
-            nameTxt.innerHTML = 'Welcome <strong>'+profile.getName()+'</strong> ';
-
-          } else {
-            console.log('logouted');
-            loginBtn.value = 'Login';
-            nameTxt.innerHTML = '';
-          }
-        }
-
-
-    // load the auth2 library
-      function init2() {
-        console.log('init');
-
-      // Initializes the GoogleAuth object.
-        gapi.load('auth2', function(){
-          console.log('auth2');
-          window.gauth = gapi.auth2.init({
-                client_id: '62315104129-7bt353qk6di5trvg24jjermgt4lnfdlh.apps.googleusercontent.com'
-              });
-
-          gauth.then(function(){
-              console.log('googleauth sucess');
-              checkLoginStatus();
-
-            },function(){
-                console.log('googleauth fail');
-              }
-            )
-        });
-
-      }
-    </script>
 
 </head>
 <body>
@@ -151,23 +97,6 @@
 
       <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
 
-      <span id="name"></span>
-      <input type="button" id="loginBtn" value="checking..." onclick="
-          if(this.value === 'Login'){
-            gauth.signIn({
-               scope:'https://www.googleapis.com/auth/calendar'
-            }).then(function(){
-              console.log('gauth.signIn()');
-              checkLoginStatus();
-            });
-          } else {
-            gauth.signOut().then(function(){
-              console.log('gauth.signOut()');
-              checkLoginStatus();
-            });
-          }
-        ">
-
       <form name="login" id="login" action="http://localhost:8000/api/members/login" method="POST">
           <labal for="username">아이디</labal>
           <input type="id" name = "username" id="username"  class="form-control">
@@ -178,7 +107,7 @@
     </div>
   </div>
 
-  <script src="https://apis.google.com/js/platform.js?onload=init2" async defer></script>
+
 
 </body>
 </html>
