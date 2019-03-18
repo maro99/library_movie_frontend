@@ -33,6 +33,44 @@
 </head>
 <body>
 
+  <script>
+
+    // $('#btn-signout').click(SignOut2);
+
+    function SignOut(){
+      console.log('signout called');
+      var token = getCookie('token');
+      if (token){
+
+        // 구글 로그인 중이라면 로그아웃 처리
+        if(gauth.isSignedIn.get()){
+            //구글 로그아웃 호출 성공시.
+            gauth.signOut().then(function(){
+              console.log('gauth.signOut()');
+            });
+        }
+
+        // api 서버에 요청 보내서 회원 탈퇴및 토큰 삭제 .
+        axios({
+            url: 'http://localhost:8000/api/members/signout',
+            headers: {
+              'Authorization': 'Token ' + getCookie('token')
+            }
+          })
+          .then(function(response){
+            console.log(response)
+            // 브라우저 에서 쿠키상의 토큰 삭제
+            setCookie('token', '', '-1');
+            window.location.reload()
+          })
+          .catch(function(error){
+            console.log(error)
+        });
+      }
+    }
+
+
+  </script>
 
 
 
@@ -56,7 +94,13 @@
           <a href="my_page_info_chage_page.html" class="btn btn-primary">회원정보수정 </a>
           <a href="my_page_movie_like_page.html" class="btn btn-primary">찜 목록</a>
           <a href="my_page_alarm_setting_page.html" class="btn btn-primary">알람설정</a>
+
+          <div style="float; display:inline-block; padding:5px 0px;" >
+                  <button id="btn-signout" type="button" class="btn btn-primary" onclick="SignOut()" >회원탈퇴</button>
+          </div>
         </div>
+
+
     </div>
 
   </div>
