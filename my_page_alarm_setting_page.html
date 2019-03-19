@@ -27,8 +27,163 @@
     <!-- get_token -->
     <script src="js/token.js"></script>
 
+    <!-- check_login  아래서 최최 페이지 로드때 유저의 알람 세팅 여부 체크시  한번 로긴 검사 하므로 중복되서 빼주겠다.-->
+    <!-- <script src="js/check_login.js"></script> -->
+
 </head>
 <body>
+
+
+  <script>
+
+  // 로긴상태 먼저 확인
+
+    var token = getCookie('token');
+    var set_alarm_before_24h = false;
+    var set_alarm_before_3h = false;
+
+    // 초기 페이지 띄우는 과정.
+    if (token) {
+      init_function_if_login();
+    }
+    else{
+      alert('로그인이 필요합니다.');
+      window.location.href = 'login_page.html';
+    }
+
+
+    // 유저의 알람 설정 상태 업데이트 한것을 버튼 상태에 반영하기위해
+   //  이렇게 해서 동기적으로 순차 처리함.
+    async function init_function_if_login(){
+      // alert('1')
+      await await_update_user_button_state()
+      // alert('2')
+      await await_show_set_alarm_page()
+      // alert('3')
+    }
+
+
+    function await_update_user_button_state(){
+      return new Promise(function(resolve, reject){
+          axios({
+              method: 'get'
+              ,url: 'http://localhost:8000/api/members/auth-test'
+              // ,async:false
+              ,headers: {
+                'Authorization': 'Token ' + token
+              }
+            })
+            .then(function (response) {
+                set_alarm_before_24h = response.data.set_alarm_before_24h;
+                set_alarm_before_3h = response.data.set_alarm_before_3h;
+                // alert(" 1. 사용자 알람 설정 상태 변수 최신화됨.");
+                resolve("async는 Promise방식을 사용합니다.");
+             })
+            .catch(function (error) {
+                alert('로그인이 필요합니다.');
+                resolve("async는 Promise방식을 사용합니다.");
+                window.location.href = 'login_page.html';
+            });
+        });
+    }
+
+
+    //
+
+    // 알람 설정 on off버튼 클릭시 이하 함수 호출됨.
+    function set_alarm(type_num,e){
+            // alert('set_alarm function called')
+            // console.log('set_alarm function called')
+      var headers = {};
+
+      if(token){
+        headers["Authorization"] = "Token " + token;
+       e.preventDefault();
+       $.ajax({
+         type: "POST"
+        ,url: "http://localhost:8000/api/members/user_set_alarm/" + type_num
+        // ,async:false
+        ,headers: headers
+        ,dataType: "json"
+        ,success: function(response){ // 통신 성공시 - 동적으로 좋아요 갯수 변경, 유저 목록 변경
+                // alert("알람 설정 on /off 버튼 클릭 됨");
+                await_update_user_button_state();
+
+                  // alert(JSON.stringify(response)
+                // window.location.href = "www.google.com";
+              // 서버로 부터 받은 값 비교해서 삭제인지 ~ 추가인지 판단해서 맞게 a테그 업데이트 해주겠다.
+              var return_message = JSON.stringify(response.detail)
+              // alert(return_message);
+              if (return_message=='"영화 시작 24시간전 알람 설정됨"'){
+                $("#24h_button_area").html(`<button  type="submit"  onclick="set_alarm(24, event)" class="btn btn-danger btn-xs" >24시간 이전 알람 해제</button>`);
+                }
+              else if(return_message=='"영화 시작 24시간전 알람 해제됨"'){
+                $("#24h_button_area").html(`<button  type="submit"  onclick="set_alarm(24, event)" class="btn btn-success btn-xs" >24시간 이전 알람 설정</button>`);
+                }
+                else if(return_message=='"영화 시작 3시간전 알람 설정됨"'){
+                  $("#3h_button_area").html(`<button  type="submit"  onclick="set_alarm(3, event)" class="btn btn-danger btn-xs" >3시간 이전 알람 해제</button>`);
+                  }
+                  else if(return_message=='"영화 시작 3시간전 알람 해제됨"'){
+                    $("#3h_button_area").html(`<button  type="submit"  onclick="set_alarm(3, event)" class="btn btn-success btn-xs" >3시간 이전 알람 설정</button>`);
+                    }
+              }
+         ,error: function(response){ // 통신 실패시 
+
+        },
+        complete: function (response) {
+
+          },
+        });
+      }
+      else{
+        e.preventDefault();
+          alert(`찜 하기 위해 로그인이 필요합니다.
+        찜을 하시면 상영 2시간 전  알람을 받을 수 있습니다.`)
+
+        window.location.href = 'login_page.html';
+      }
+
+    }
+
+
+
+    function await_show_set_alarm_page(){
+      return new Promise(function(resolve, reject){
+                  // alert(" 2.await_show_set_alarm_page() 호출됨 .");
+                var curElement = `<div style="float:left; display:inline-block; margin: 5px 5px;" >
+                                      <div id="24h_button_area">`
+
+                if (set_alarm_before_24h){
+                          curElement += `<button  type="submit"  onclick="set_alarm(24, event)" class="btn btn-danger btn-xs" >24시간 이전 알람 해제</button>`
+                    }
+                else{
+                          curElement += `<button  type="submit"  onclick="set_alarm(24, event)" class="btn btn-success btn-xs" >24시간 이전 알람 설정</button>`
+                    }
+
+                curElement +=     `   </div>
+                                  </div>`
+
+
+                curElement += `<div style="float:left; display:inline-block; margin: 5px 5px;" >
+                                   <div id="3h_button_area">`
+
+               if (set_alarm_before_3h){
+                       curElement += `<button  type="submit"  onclick="set_alarm(3, event)" class="btn btn-danger btn-xs" >3시간 이전 알람 해제</button>`
+                 }
+               else{
+                       curElement += `<button  type="submit"  onclick="set_alarm(3, event)" class="btn btn-success btn-xs" >3시간 이전 알람 설정</button>`
+                 }
+
+               curElement +=     `   </div>
+                               </div>`
+
+              $('.content').append(curElement);
+
+              resolve("async는 Promise방식을 사용합니다.");
+            });
+        }
+  </script>
+
 
 
 
@@ -48,7 +203,7 @@
 
     <div>
       <h3>알람설정</h3>
-
+      <div class="content"></div>
     </div>
 
   </div>
