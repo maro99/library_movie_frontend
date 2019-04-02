@@ -3,7 +3,7 @@ function await_show_movie_page(){
       // 영화 띄워주는 부분들
 
         // /api/movies/main_page_by_date/에 GET 요쳥
-        axios.get('http://localhost:8000/api/movies/main_page_by_date')
+        axios.get(root_address+'/api/movies/main_page_by_date')
           // 성공시
           .then(function(response) {
 
