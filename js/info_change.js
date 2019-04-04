@@ -45,7 +45,7 @@
       // 최초 html 랜더해주는 코드
       axios({
           method: 'get'
-          ,url: 'http://localhost:8000/api/members/auth-test'
+          ,url: root_address + '/api/members/auth-test'
           // ,async:false
           ,headers: {
             'Authorization': 'Token ' + token
@@ -103,7 +103,7 @@
            e.preventDefault();
            $.ajax({
              type: "POST"
-            ,url: "http://localhost:8000/api/members/user-info-change-page/"+url_part
+            ,url: root_address + "/api/members/user-info-change-page/"+url_part
             // ,async:false
             ,data:data_input
             ,dataType: "json"
@@ -188,7 +188,7 @@
            e.preventDefault();
            $.ajax({
              type: "PATCH"
-            ,url: "http://localhost:8000/api/members/user-info-change-page/" + url_part
+            ,url: root_address + "/api/members/user-info-change-page/" + url_part
             // ,async:false
             ,data:data_input
             ,dataType: "json"

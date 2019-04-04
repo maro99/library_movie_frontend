@@ -39,7 +39,7 @@ function LogOut(){
 
     // api 서버에 요청 보내서 쿠키 삭제
     axios({
-        url: 'http://localhost:8000/api/members/logout',
+        url: root_address + '/api/members/logout',
         headers: {
           'Authorization': 'Token ' + getCookie('token')
         }
@@ -67,7 +67,7 @@ function Google_Login(){
       var profile = gauth.currentUser.get().getBasicProfile();
       var access_token = gauth.currentUser.get().Zi.access_token
 
-      axios.post('http://localhost:8000/api/members/google-auth-token',{
+      axios.post(root_address + '/api/members/google-auth-token',{
       access_token: access_token,
     })
     .then(function(response){

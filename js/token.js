@@ -1,5 +1,5 @@
 function getToken(username, password){
-  axios.post('http://localhost:8000/api/members/login',{
+  axios.post(root_address + '/api/members/login',{
   username: username,
   password: password,
 })
@@ -17,7 +17,7 @@ function getToken(username, password){
 function authTest() {
   axios({
     method: 'get',
-    url: 'http://localhost:8000/api/members/auth-test',
+    url: root_address + '/api/members/auth-test',
     headers: {
       'Authorization': 'Token ' + getCookie('token')
     }

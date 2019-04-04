@@ -3,7 +3,7 @@ function await_show_movie_page(){
     var temp=location.href.split("?")
     var pk = temp[1]
 
-     axios.get('http://localhost:8000/api/movies/'+ pk)
+     axios.get(root_address + '/api/movies/'+ pk)
         // 성공시
         .then(function(response) {
         //   // response.data 가 가진 요소들을 순회

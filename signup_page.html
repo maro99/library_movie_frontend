@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+    <!-- local, dev, production 따라 api서버 주소 바뀌어서 변경.  -->
+    <script src="js/address_variable.js"></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.css">
     <!-- axios -->
@@ -35,6 +38,11 @@
 
 </head>
 <body>
+  <script>
+    // 미리 선언한 root_address  자바스크립트 변수를 html에 할당하기 위한 코드들.
+    document.getElementById('join').action = root_address + "/api/members/signup";
+
+  </script>
 
   <div class="container">
     <br>
@@ -52,7 +60,7 @@
     <div>
       <h1>회원가입</h1>
 
-      <form  name="join" action="http://localhost:8000/api/members/signup" id="join" method="post">
+      <form  name="join" action="/" id="join" method="post">
         <labal for="username">아이디</labal>
         <input name="username" type="text" class="form-control" id="username">
 

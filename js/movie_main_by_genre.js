@@ -2,7 +2,7 @@ function await_show_movie_page(){
   return new Promise(function(resolve, reject){
 
       // /api/movies/main_page_by_date/에 GET 요쳥
-      axios.get('http://localhost:8000/api/movies/main_page_by_genre')
+      axios.get(root_address + '/api/movies/main_page_by_genre')
         // 성공시
         .then(function(response) {
 

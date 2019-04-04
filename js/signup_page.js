@@ -61,7 +61,7 @@ function validate() {
             var message = ""
 
             $.ajax({
-                url: "http://localhost:8000/api/members/signup-server-test", // 클라이언트가 요청을 보낼 서버의 URL 주소
+                url: root_address + "/api/members/signup-server-test", // 클라이언트가 요청을 보낼 서버의 URL 주소
                 data: {
                           username:username_re,
                           email:email_re,

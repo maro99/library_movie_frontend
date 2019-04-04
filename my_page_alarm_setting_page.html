@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+    <!-- local, dev, production 따라 api서버 주소 바뀌어서 변경.  -->
+    <script src="js/address_variable.js"></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.css">
     <!-- axios -->
@@ -67,7 +70,7 @@
       return new Promise(function(resolve, reject){
           axios({
               method: 'get'
-              ,url: 'http://localhost:8000/api/members/auth-test'
+              ,url: root_address + '/api/members/auth-test'
               // ,async:false
               ,headers: {
                 'Authorization': 'Token ' + token
@@ -101,7 +104,7 @@
        e.preventDefault();
        $.ajax({
          type: "POST"
-        ,url: "http://localhost:8000/api/members/user_set_alarm/" + type_num
+        ,url: root_address + "/api/members/user_set_alarm/" + type_num
         // ,async:false
         ,headers: headers
         ,dataType: "json"
@@ -127,7 +130,7 @@
                     $("#3h_button_area").html(`<button  type="submit"  onclick="set_alarm(3, event)" class="btn btn-success btn-xs" >3시간 이전 알람 설정</button>`);
                     }
               }
-         ,error: function(response){ // 통신 실패시 
+         ,error: function(response){ // 통신 실패시
 
         },
         complete: function (response) {

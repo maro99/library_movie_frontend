@@ -25,7 +25,7 @@
     return new Promise(function(resolve, reject){
         axios({
             method: 'get'
-            ,url: 'http://localhost:8000/api/members/auth-test'
+            ,url: root_address + '/api/members/auth-test'
             // ,async:false
             ,headers: {
               'Authorization': 'Token ' + token
@@ -61,7 +61,7 @@
      e.preventDefault();
      $.ajax({
        type: "POST"
-      ,url: "http://localhost:8000/api/members/movie-like/" + pk
+      ,url: root_address + "/api/members/movie-like/" + pk
       // ,async:false
       ,dataType: "json"
       ,headers : headers

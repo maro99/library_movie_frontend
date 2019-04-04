@@ -5,7 +5,7 @@ if (token) {
   // User정보는 Profile API에서 받아옴
   axios({
     method: 'get',
-    url: 'http://localhost:8000/api/members/auth-test',
+    url: root_address + '/api/members/auth-test',
     headers: {
       'Authorization': 'Token ' + getCookie('token')
     }

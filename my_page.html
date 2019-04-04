@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+    <!-- local, dev, production 따라 api서버 주소 바뀌어서 변경.  -->
+    <script src="js/address_variable.js"></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.css">
     <!-- axios -->
@@ -52,7 +55,7 @@
 
         // api 서버에 요청 보내서 회원 탈퇴및 토큰 삭제 .
         axios({
-            url: 'http://localhost:8000/api/members/signout',
+            url: root_address + '/api/members/signout',
             headers: {
               'Authorization': 'Token ' + getCookie('token')
             }
