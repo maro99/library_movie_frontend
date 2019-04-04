@@ -38,11 +38,6 @@
 
 </head>
 <body>
-  <script>
-    // 미리 선언한 root_address  자바스크립트 변수를 html에 할당하기 위한 코드들.
-    document.getElementById('join').action = root_address + "/api/members/signup";
-
-  </script>
 
   <div class="container">
     <br>
@@ -84,7 +79,10 @@
 
   </div>
 
-
+  <script>
+    // 미리 선언한 root_address  자바스크립트 변수를 html에 할당하기 위한 코드들.
+    document.getElementById('join').action = root_address + "/api/members/signup";
+  </script>
 
 </body>
 </html>
