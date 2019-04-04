@@ -88,7 +88,9 @@ function validate() {
                       if (data.responseJSON.phone_number)
                         alert("phone_number: " + JSON.stringify(data.responseJSON.phone_number[0]));
                       else
-                        alert(JSON.stringify(data.responseJSON))
+                        alert(JSON.stringify(data.responseJSON));
+                        console.log(JSON.stringify(data.responseJSON));
+                        console.log(data.responseJSON)
 
                 },
 
