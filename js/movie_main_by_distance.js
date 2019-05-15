@@ -1,42 +1,95 @@
-function get_distance_var(){
-    // movie_like.js에서 일괄적으로 다루려고 일단 선언만 해놓음 ( movie_main_by_distance에는 원래 목적대로 작성해놓음)
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  현지점으로부터 거리 추출 관련 함수 및 변수
+var lat
+var lon
+var lat_lng_dict = {}
+var distance_range_list = [1,3,5,10,100]
+
+
+// 브라우저 접속 ip 기준 위경도 뽑음
+function onGeolocationSuccess(position) {
+  // 좌표출력
+  console.log("lat: " + position.coords.latitude + ", lon: " + position.coords.longitude);
+
+  lat = position.coords.latitude
+  lon = position.coords.longitude
 }
 
+ function onGeolocationFail(error) {
+// 에러 출력
+console.log("Error Code: " + error.code + ", Error Description: " + error.message);
+}
+
+function get_distance_var(){
+  if (navigator.geolocation) {
+  // 정확한 위치 사용 // 캐시 사용 안함 // timeout 3초 (3000ms)
+   var positionOptions = { enableHighAccuracy	: true, maximumAge	: 0, timeout	: 3000
+   };
+  navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationFail, positionOptions);
+  }
+}
+
+// 두 지점 사이의 거리 리턴
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    var R = 6371; // km
+    var dLat = (lat2-lat1) * Math.PI / 180;
+    var dLon = (lon2-lon1) * Math.PI / 180;
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c;
+    // console.log(d)
+    return d;
+  }
+
+
+
+
+//  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   페이지 랜더링 관련 함수
 function await_show_movie_page(){
   return new Promise(function(resolve, reject){
 
       // /api/movies/main_page_by_date/에 GET 요쳥
-      axios.get(root_address + '/api/movies/main_page_by_genre')
+      axios.get(root_address + '/api/movies/main_page_by_distance')
         // 성공시
         .then(function(response) {
+          // 서버에서는 기존 genre 속성 추가 했듯이 해당하는 도서관의 좌표를 속성으로 추가해 보자.
 
-          // 일단 장르 리스트 부터 뽑자
-          var genre_list = []
+          //  서버로 부터 각 영화마다 해당 영화 상영하는 도서관의 위도 경도 가져와서
+          // {도서관명: (위도,경도))} 이런 식으로 저장.
+          // 이후 {도서관명 : 지금 위치로부터 거리 } 이렇게 다른 dict에 저장 .
+
+          // 거리[1,2,3,4,5,50] 돌면서 1km 이내, 2km 이내, ~ 이런식으로 체크 해 가면서 각 영화-해당 도서관 의 이름으로 dict조회한 거리에 해당하는 범위에서 영화 출력.
+          // 이후 curMovie
+
           for (var i=0; i< response.data.length; i++) {
-            var curMovie = response.data[i];
-            if ($.inArray(curMovie.genre, genre_list) == -1){
-              genre_list.push(curMovie.genre)
-            }
+              var curMovie = response.data[i];
+
+              // //1.  {도서관명 : 지금 위치로부터 거리 } 이렇게  저장
+              lat_lng_dict[curMovie.library.library_name] = calculateDistance(lat, lon, curMovie.library.lat, curMovie.library.lng)
+              // console.log(curMovie)
+
           }
 
-          // 장르 리스트 돌면서 각 장르에 해당하는 영화만 출력
-            for (var index=0; index< genre_list.length; index++){
+          // 1,3,5,100 범위 해당하는 영화만 각각 출력
+            var from_km = 0
+            for (var index=0; index< distance_range_list.length; index++){
 
-              if (genre_list[index] == ""){
-                $('.content').append(`<h2> 기타 </h2>`)
-              }
-              else{
-                $('.content').append(`<h2>${genre_list[index]}</h2>`)
-              }
+                var to_km = distance_range_list[index]
+                $('.content').append(`<h2>현재위치로 부터 ${from_km}~${to_km}km  </h2>`)
+
 
                 curGenreBlock = `<div class="row">`
 
                 // response.data 가 가진 요소들을 순회
                 for (var i=0; i< response.data.length; i++) {
+
                   // 각 순회에 해당하는 요소는 curMovie
                   var curMovie = response.data[i];
-
-                  if (curMovie.genre==genre_list[index]){
+                  var distance = lat_lng_dict[curMovie.library.library_name]
+                  console.log(distance)
+                  if ((from_km<=distance)&&(to_km > distance)){
 
               //       //  2018-12-30T15:00:00+09:00  날짜 보기 좋은 형식으로 변환
                     var when_date_pre= curMovie.when
@@ -84,6 +137,8 @@ function await_show_movie_page(){
                 curGenreBlock+=`</div>`
                 $('.content').append(curGenreBlock);
 
+
+            from_km = to_km
           }
        })
 

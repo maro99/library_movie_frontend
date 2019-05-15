@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+      <!-- local, dev, production 따라 api서버 주소 바뀌어서 변경.  -->
+      <script src="js/address_variable.js"></script>
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="css/bootstrap.css">
+      <!-- axios -->
+      <script src="js/axios.js"></script>
+      <!-- jQuery -->
+      <script src="js/jquery.js"></script>
+
+      <!-- jquery form -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+
+      <!-- Style -->
+      <link rel="stylesheet" href="css/style.css">
+
+      <!-- cookie -->
+      <script src="js/cookie.js"></script>
+
+      <!-- for middle_buttons.html  -->
+      <script> $(function(){$("#DivMiddleButtons").load("middle_buttons.html"); });</script>
+
+      <!-- for sort_button.html -->
+      <script> $(function(){$("#gnb").load("sort_button.html"); });</script>
+
+      <!-- get_token -->
+      <script src="js/token.js"></script>
+
+      <!-- movie_main_by_genre -->
+      <script src="js/movie_main_by_distance.js"></script>
+
+      <!-- movie_like -->
+      <script src="js/movie_like.js"></script>
+
+
+</head>
+<body>
+
+
+
+
+  <div class="container">
+    <br>
+      <a href="index.html">
+         <h1>도서관 무료영화 관람정보</h1>
+      </a>
+    <br>
+
+  <div id="DivMiddleButtons"></div>
+
+  <div id="gnb" style="float:right; display:inline-block;"></div>
+
+    <br><br><br><br><br><br>
+
+    <div class="container content"></div>
+  </div>
+
+
+
+
+</body>
+</html>

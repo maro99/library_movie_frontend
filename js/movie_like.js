@@ -7,20 +7,34 @@
       is_login = true;
   }
   else{
-    await_show_movie_page();
+    init_function_if_not_login();
   }
 
-
+   // 로긴시 동기적으로 순서대로 함수 처리 하기 위함.(유저가 좋아요한 영화 리스트등을 받고 페이지 랜더해줘야해서 )
   // update_user_movie_list() +  movie_show_detail_page 된건데 일단 이렇게 써주겠슴.
   async function init_function_if_login(){
     // alert('1')
     await await_update_user_movie_list()
     // alert('2')
-    await await_show_movie_page()
+    await get_distance_var();
     // alert('3')
+    await await_show_movie_page()      //각 genre,distance,등의 main page 의 js에 선언되 있음.
+    // alert('4')
+  }
+
+   // 로긴 안되있을시 동기적으로 함수 처리해 주기 위함
+   // (movie_main_by_distance에서 현위치 위경도 얻고페이지 띄워주기위함 -> genre, index,rate따른 mainpage는 딱히 필요 없지만
+   // 일괄 적으로 여기서 처리해주고 싶어서 빈 함수 각 js에 선언해 놓긴 했음. )
+  async function init_function_if_not_login(){
+
+    await get_distance_var();
+    // alert('11')
+    await await_show_movie_page();
+    // alert('22')
   }
 
 
+  // 유저 가 좋아요 한 것들 업데이트
   function await_update_user_movie_list(){
     return new Promise(function(resolve, reject){
         axios({
