@@ -1,7 +1,3 @@
-function get_distance_var(){
-    // movie_like.js에서 일괄적으로 다루려고 일단 선언만 해놓음 ( movie_main_by_distance에는 원래 목적대로 작성해놓음)
-}
-
 function await_show_movie_page(){
   return new Promise(function(resolve, reject){
 

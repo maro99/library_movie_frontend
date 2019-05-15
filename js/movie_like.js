@@ -1,37 +1,67 @@
+// 좀 했갈리는데..
+// 현제 이 js 호출한 html  이 movie_main_by_distance.html 인 경우 와 그렇지 않은 경우 구분해서
+// init_function_if_login, init_function_if_not_login 각각 만들어 놓았다.
+// (mobvie_main_by_distance에서 쓰이는 현 위경도 구하는 함수의 함수안에서 페이지 렌더해주는 함수를 콜백하고있어서 이렇게 안하면 중복 해서 띄워주는것이 문제 되었다.).
+  var path = window.location.pathname;
+  var page = path.split("/").pop();
+  console.log( page);
+
 // 로긴상태 먼저 확인
   var is_login = false;
   var movie_list = [];
+
   var token = getCookie('token');
-  if (token) {
-      init_function_if_login();
+  if ((token)&&(page != "movie_main_by_distance.html")){      // 로긴 됬고 ~인경우
+      init_function_if_login1();
       is_login = true;
   }
-  else{
-    init_function_if_not_login();
+  else if ((token)&&(page == "movie_main_by_distance.html")){  // 로긴 됬고 ~인경우
+      init_function_if_login2();
+      is_login = true;
+ }
+  else if ((token=="")&&(page != "movie_main_by_distance.html")){
+      init_function_if_not_login1();
+  }
+  else if ((token=="")&&(page == "movie_main_by_distance.html")){
+      init_function_if_not_login2();
   }
 
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@  현제 이 js 호출한 html  이 movie_main_by_distance.html 아닌 경우
    // 로긴시 동기적으로 순서대로 함수 처리 하기 위함.(유저가 좋아요한 영화 리스트등을 받고 페이지 랜더해줘야해서 )
-  // update_user_movie_list() +  movie_show_detail_page 된건데 일단 이렇게 써주겠슴.
-  async function init_function_if_login(){
-    // alert('1')
-    await await_update_user_movie_list()
-    // alert('2')
-    await get_distance_var();
-    // alert('3')
-    await await_show_movie_page()      //각 genre,distance,등의 main page 의 js에 선언되 있음.
-    // alert('4')
-  }
+   // update_user_movie_list() +  movie_show_detail_page 된건데 일단 이렇게 써주겠슴.
+   async function init_function_if_login1(){
+     // alert('1')
+     await await_update_user_movie_list();
+     // alert('2')
+     await await_show_movie_page();      //각 genre,distance,등의 main page 의 js에 선언되 있음.
+     // alert('3')
+   }
+    // 로긴 안되있을시 동기적으로 함수 처리해 주기 위함
+   async function init_function_if_not_login1(){
+     await await_show_movie_page();
+     // alert('22')
+   }
 
-   // 로긴 안되있을시 동기적으로 함수 처리해 주기 위함
-   // (movie_main_by_distance에서 현위치 위경도 얻고페이지 띄워주기위함 -> genre, index,rate따른 mainpage는 딱히 필요 없지만
-   // 일괄 적으로 여기서 처리해주고 싶어서 빈 함수 각 js에 선언해 놓긴 했음. )
-  async function init_function_if_not_login(){
+   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   현제 이 js 호출한 html  이 movie_main_by_distance.html 인 경우
+   async function init_function_if_login2(){
+     // alert('1')
+     await await_update_user_movie_list();
+     // alert('2')
+     await get_distance_var();//await_show_movie_page() 를 이 함수 가 호출하는 함수 내부에서 호출하고 있음.
+     // alert('3')
+     // await await_show_movie_page();
+     // alert('4')
+   }
+    // 로긴 안되있을시 동기적으로 함수 처리해 주기 위함
+    // (movie_main_by_distance에서 현위치 위경도 얻고페이지 띄워주기위함 -> genre, index,rate따른 mainpage는 딱히 필요 없지만
+    // 일괄 적으로 여기서 처리해주고 싶어서 빈 함수 각 js에 선언해 놓긴 했음. )
+   async function init_function_if_not_login2(){
 
-    await get_distance_var();
-    // alert('11')
-    await await_show_movie_page();
-    // alert('22')
-  }
+     await get_distance_var();
+     // alert('11')
+     // await await_show_movie_page();  //await_show_movie_page() 를 이 함수 가 호출하는 함수 내부에서 호출하고 있음.
+     // alert('22')
+   }
 
 
   // 유저 가 좋아요 한 것들 업데이트

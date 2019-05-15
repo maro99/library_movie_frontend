@@ -13,6 +13,7 @@ function onGeolocationSuccess(position) {
 
   lat = position.coords.latitude
   lon = position.coords.longitude
+  await_show_movie_page();
 }
 
  function onGeolocationFail(error) {
@@ -23,11 +24,23 @@ console.log("Error Code: " + error.code + ", Error Description: " + error.messag
 function get_distance_var(){
   if (navigator.geolocation) {
   // 정확한 위치 사용 // 캐시 사용 안함 // timeout 3초 (3000ms)
-   var positionOptions = { enableHighAccuracy	: true, maximumAge	: 0, timeout	: 3000
+   var positionOptions = { enableHighAccuracy	: true, maximumAge	: 5000, timeout	: 5000
    };
   navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationFail, positionOptions);
   }
 }
+
+
+// async function init_function_if_not_login(){
+//
+//   await get_distance_var();
+//   // alert('11')
+//   await await_show_movie_page();
+//   // alert('22')
+// }
+
+
+
 
 // 두 지점 사이의 거리 리턴
 function calculateDistance(lat1, lon1, lat2, lon2) {
