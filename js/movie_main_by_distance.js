@@ -90,19 +90,23 @@ function await_show_movie_page(){
             for (var index=0; index< distance_range_list.length; index++){
 
                 var to_km = distance_range_list[index]
-                $('.content').append(`<h2>현재위치로 부터 ${from_km}~${to_km}km  </h2>`)
-
 
                 curGenreBlock = `<div class="row">`
 
+                var print_once_flag = false;
                 // response.data 가 가진 요소들을 순회
                 for (var i=0; i< response.data.length; i++) {
-
                   // 각 순회에 해당하는 요소는 curMovie
                   var curMovie = response.data[i];
                   var distance = lat_lng_dict[curMovie.library.library_name]
                   console.log(distance)
                   if ((from_km<=distance)&&(to_km > distance)){
+
+                    // 각 위치범위 에 영화 존재시 해당 범위 한번 씩만 출력.(없으면 출력 x )
+                    if (print_once_flag==false){
+                        $('.content').append(`<h2>현재위치로 부터 ${from_km}~${to_km}km  </h2>`)
+                        print_once_flag = true;
+                    }
 
               //       //  2018-12-30T15:00:00+09:00  날짜 보기 좋은 형식으로 변환
                     var when_date_pre= curMovie.when
