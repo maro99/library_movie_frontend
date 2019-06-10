@@ -16,10 +16,10 @@ p {
 
 
 
-#gnb{ background:#000000; width:150px; height:40px; line-height:40px; margin:0 auto; }
-#gnb ul li{ float:left; width:100px; color:#fff; text-align:center; }
-#gnb ul li a{ color:#fff; font-weight:bold; display:block; }
-#gnb ul li a:hover{ background:#666; }
+#gnb{ float:left; background:#000000; width:90px; height:40px; line-height:40px; margin:0 auto; padding: 5px 30px 0px 0px;}
+#gnb ul li{ float:right; width:90px; color:#fff; text-align:center; list-style-type : none}
+#gnb ul li a{ color:#fff; font-weight:bold; display:block;}
+#gnb ul li a:hover{ background:#007bff; }
 #gnb ul li dl.dropdown{ border:3px #ccc solid; background:#FFC; display:none; }
 #gnb ul li dl.dropdown dd{height:30px; line-height:30px; border-bottom:1px #ccc solid; }
 #gnb ul li dl.dropdown a{ color:#333;  padding:0 5px; }
