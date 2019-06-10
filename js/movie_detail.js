@@ -27,7 +27,7 @@ function await_show_movie_page(){
             // alert(JSON.stringify(movie_list))
             // $('.content').append(`<h1>${is_login}</h1>`);
             var curElement = `<div class="card bg-dark text-white">`
-            curElement += `<div class="card-img-top" style="height: 354px; width: 618px; background-image: url('${curMovie.thumbnail_url}'); margin: 20px;  background-size: cover;"> `
+            curElement += `<div class="card-img-top" style="padding-top: 57.28%; width: 90%; background-image: url('${curMovie.thumbnail_url}'); margin: 20px;  background-size: cover;"> `
 
 
               // 로긴 했었는지 판별

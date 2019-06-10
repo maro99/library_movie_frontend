@@ -19,8 +19,8 @@ function await_show_movie_page(){
               var when_time =  when_time_pre_list[0] +":"+when_time_pre_list[1]
               var when = when_date +" "+ when_time
 
-              var curElement = `<div class="col-4 mb-3" >
-                                  <a href="movie_detail.html?${curMovie.pk}"><div class="card-img-top" style="height: 177px; width: 309px; background-image: url('${curMovie.thumbnail_url}'); background-size: cover;">`
+              var curElement = `<div class="col-xs-12 col-sm-6  col-md-6 col-lg-4 mb-3" >
+                                  <a href="movie_detail.html?${curMovie.pk}"><div class="card-img-top" style="padding-top: 57.28%; width: 100%; background-image: url('${curMovie.thumbnail_url}'); background-size: cover;">`
 
                   // 로긴 했었는지 판별
                 if (is_login){
