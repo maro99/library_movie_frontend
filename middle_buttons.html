@@ -110,17 +110,17 @@ function Google_Login(){
 
 <div class="content2">
   <div style="float:left; display:inline-block; padding:10px 10px;" >
-    <input id="input-gogole_login"  type="button" value="Google_Login" class="btn btn-primary"  onclick="
+    <button id="input-gogole_login"class="btn btn-primary bouton-image monBouton"  onclick="
           gauth.signIn({
           }).then(function(){
             console.log('gauth.signIn()');
             Google_Login();
           });
-      ">
+      ">Login with Google </button>
   </div>
 
   <div style="float:left; display:inline-block; padding:10px 10px;" >
-          <a id="a-login" href="login_page.html" class="btn btn-primary" >Login</a>
+          <a id="a-login" href="login_page.html" class="btn btn-primary " >Login</a>
   </div>
 
   <div style="float:left; display:inline-block; padding:10px 10px;" >

@@ -26,3 +26,21 @@ p {
 #gnb ul li dl.dropdown a:hover{ background:#F60; color:#fff; }
 
 #gnb ul li.menu3:hover .dropdown{ display:block; }
+
+
+
+.bouton-image:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position : center center;
+    background-repeat:no-repeat;
+}
+
+.monBouton:before{
+     background-image : url(../images/btn_google_light_normal_ldpi.9.png);
+}
