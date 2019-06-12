@@ -4,7 +4,7 @@
 // (mobvie_main_by_distance에서 쓰이는 현 위경도 구하는 함수의 함수안에서 페이지 렌더해주는 함수를 콜백하고있어서 이렇게 안하면 중복 해서 띄워주는것이 문제 되었다.).
   var path = window.location.pathname;
   var page = path.split("/").pop();
-  console.log( page);
+  // console.log( page);
 
 // 로긴상태 먼저 확인
   var is_login = false;

@@ -11,7 +11,7 @@
       //  해당 자바 스크립트 파일 호출한 html 문서 명으로 케이스 분류해서 함수 재사용 하겠다.
       var path = window.location.pathname;
       var page = path.split("/").pop();
-      alert(page);
+      // alert(page);
 
       // 호출한 html문서명 따라 변수값들 지정.
       var pre_insert_value = ""
@@ -82,7 +82,7 @@
 
         // 정보 수정 요청 보내는 함수 (이함수는 변수값만 바꿔 할당해서 재사용)
         function info_change(e){
-          alert("정보 변경 요청 함수 호출 ");
+          // alert("정보 변경 요청 함수 호출 ");
 
           // html에 렌더된 input 에 입력된 정보 가져옴
           var info_input = document.getElementById('info_input').value;
@@ -113,7 +113,7 @@
 
                 // 정상적으로 전달 됬으면
                   var return_message = JSON.stringify(response.detail)
-                  alert(return_message);
+                  // alert(return_message);
                 // change_info_token 토큰 을 쿠키로 저장
                   var change_info_token =""
 
@@ -131,7 +131,7 @@
 
 
                   setCookie('change_info_token',change_info_token,1);
-                  alert(return_message);
+                  // alert(return_message);
               }
 
              ,error: function(response){
@@ -166,7 +166,7 @@
 
         // 인증번호 인증 보내는 함수
         function send_auth_code(e){
-          alert("인증번호 인증 요청 함수 호출됨.");
+          // alert("인증번호 인증 요청 함수 호출됨.");
 
           var info_input = document.getElementById('info_input').value;
           var auth_code_input = document.getElementById('auth_code_input').value;

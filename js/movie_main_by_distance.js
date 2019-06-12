@@ -9,7 +9,7 @@ var distance_range_list = [1,3,5,10,100]
 // 브라우저 접속 ip 기준 위경도 뽑음
 function onGeolocationSuccess(position) {
   // 좌표출력
-  console.log("lat: " + position.coords.latitude + ", lon: " + position.coords.longitude);
+  // console.log("lat: " + position.coords.latitude + ", lon: " + position.coords.longitude);
 
   lat = position.coords.latitude
   lon = position.coords.longitude
@@ -18,7 +18,7 @@ function onGeolocationSuccess(position) {
 
  function onGeolocationFail(error) {
 // 에러 출력
-console.log("Error Code: " + error.code + ", Error Description: " + error.message);
+// console.log("Error Code: " + error.code + ", Error Description: " + error.message);
 }
 
 function get_distance_var(){
@@ -99,7 +99,7 @@ function await_show_movie_page(){
                   // 각 순회에 해당하는 요소는 curMovie
                   var curMovie = response.data[i];
                   var distance = lat_lng_dict[curMovie.library.library_name]
-                  console.log(distance)
+                  // console.log(distance)
                   if ((from_km<=distance)&&(to_km > distance)){
 
                     // 각 위치범위 에 영화 존재시 해당 범위 한번 씩만 출력.(없으면 출력 x )
