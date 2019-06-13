@@ -1,3 +1,16 @@
+ // 스크롤 위치 기억하는 함수
+$(window).scroll(function () {
+    //set scroll position in session storage
+    sessionStorage.scrollPos = $(window).scrollTop();
+});
+var init = function () {
+    //get scroll position in session storage
+    $(window).scrollTop(sessionStorage.scrollPos || 0)
+};
+//문서에 포함된 모든 콘텐츠가 로드된 후에 실행
+window.onload = init;
+
+
 // 좀 했갈리는데..
 // 현제 이 js 호출한 html  이 movie_main_by_distance.html 인 경우 와 그렇지 않은 경우 구분해서
 // init_function_if_login, init_function_if_not_login 각각 만들어 놓았다.

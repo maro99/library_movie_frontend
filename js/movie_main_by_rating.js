@@ -1,3 +1,6 @@
+// 아래 함수 호출은 이 파일호출하는곳에서 보면 알수있듯이 그보다 상위에서 호출된 movie_like.js 에서 호출.
+
+
 function await_show_movie_page(){
   return new Promise(function(resolve, reject){
 
